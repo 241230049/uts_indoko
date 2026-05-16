@@ -1,85 +1,69 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-7xl mx-auto">
-    
-    <!-- Bagian Judul -->
-    <div class="flex justify-between items-center mb-8">
-        <div>
-            <h1 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">Katalog Barang Tersedia</h1>
-            <p class="mt-1 text-sm text-slate-500">Temukan atau bagikan barang bekas layak pakai secara gratis.</p>
-        </div>
-    </div>
+<div class="text-center max-w-4xl mx-auto mb-12">
+    <h1 class="text-2xl font-extrabold text-slate-950 tracking-tight sm:text-4xl whitespace-nowrap">
+        Salurkan Barang Bekas Layak Pakai Anda
+    </h1>
+    <p class="mt-3 text-base text-slate-500 max-w-2xl mx-auto leading-relaxed">
+        Bantu sesama dengan mendonasikan barang, pakaian, buku, atau elektronik yang sudah tidak Anda gunakan namun masih berfungsi dengan baik.
+    </p>
+</div>
 
-    <!-- Notifikasi Sukses -->
-    @if(session('success'))
-        <div class="mb-6 p-4 bg-emerald-50 border border-emerald-200 rounded-lg flex items-start gap-3">
-            <svg class="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span class="text-sm font-medium text-emerald-800">{{ session('success') }}</span>
-        </div>
-    @endif
-
-    <!-- Grid Kartu Barang -->
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        @forelse($items as $item)
-            <div class="bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col justify-between overflow-hidden">
-                
-                <!-- Badan Kartu -->
-                <div class="p-6 flex-grow">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-100">
-                            {{ $item->kategori }}
-                        </span>
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700">
-                            Kondisi: {{ $item->kondisi }}
-                        </span>
-                    </div>
-                    
-                    <h2 class="text-lg font-bold text-slate-900 line-clamp-1 mb-2">{{ $item->nama_barang }}</h2>
-                    <p class="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3">{{ $item->deskripsi }}</p>
-                    
-                    <!-- Detail Kontak -->
-                    <div class="bg-slate-50 rounded-lg p-3 border border-slate-100 space-y-1.5">
-                        <div class="text-xs text-slate-500 flex justify-between">
-                            <span>Kontak Penyedia:</span>
-                            <span class="font-semibold text-slate-700">{{ $item->kontak_pemilik }}</span>
-                        </div>
-                    </div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    @forelse($items as $item)
+        <div class="bg-white border border-slate-200/60 rounded-2xl p-5 flex flex-col justify-between hover:border-blue-200 hover:shadow-xl hover:shadow-blue-50/20 transition-all duration-300 group">
+            <div>
+                <div class="flex items-center gap-2 mb-3.5">
+                    <span class="px-2.5 py-1 bg-blue-50 text-blue-700 rounded-lg text-xs font-semibold tracking-wide uppercase">
+                        {{ $item->kategori }}
+                    </span>
+                    <span class="px-2.5 py-1 bg-amber-50 text-amber-700 rounded-lg text-xs font-semibold tracking-wide uppercase">
+                        Kondisi: {{ $item->kondisi }}
+                    </span>
                 </div>
 
-                <!-- Bagian Tombol Aksi -->
-                <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-end gap-3">
-                    <a href="{{ route('items.edit', $item->id) }}" class="inline-flex items-center justify-center px-3 py-1.5 text-xs font-semibold text-slate-700 bg-white border border-slate-300 rounded-md shadow-sm hover:bg-slate-50 transition-colors">
-                        Edit
+                <h3 class="text-lg font-bold text-slate-900 line-clamp-1 group-hover:text-blue-600 transition-colors">
+                    {{ $item->nama_barang }}
+                </h3>
+
+                <p class="text-sm text-slate-500 mt-2 line-clamp-3 leading-relaxed">
+                    {{ $item->deskripsi }}
+                </p>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between gap-4">
+                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $item->kontak_pemilik) }}" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-emerald-600 hover:text-emerald-700 transition-colors bg-emerald-50 px-3 py-1.5 rounded-xl">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span>Hubungi Pemilik</span>
+                </a>
+
+                <div class="flex items-center gap-2">
+                    <a href="{{ route('items.edit', $item->id) }}" class="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all" title="Edit Data">
+                        <i class="fa-solid fa-pen-to-square text-sm"></i>
                     </a>
                     
-                    <form action="{{ route('items.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus barang ini?')">
+                    <form action="{{ route('items.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus barang donasi ini?')" class="inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="inline-flex items-center justify-center px-3 py-1.5 text-xs font-semibold text-red-600 bg-white border border-red-200 rounded-md shadow-sm hover:bg-red-50 transition-colors">
-                            Hapus
+                        <button type="submit" class="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-all" title="Hapus Data">
+                            <i class="fa-solid fa-trash text-sm"></i>
                         </button>
                     </form>
                 </div>
-
             </div>
-        @empty
-            <!-- State jika data kosong -->
-            <div class="col-span-full bg-white border border-dashed border-slate-300 rounded-2xl p-12 text-center">
-                <svg class="mx-auto h-12 w-12 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0a2 2 0 01-2 2H6a2 2 0 01-2-2m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5" />
-                </svg>
-                <h3 class="mt-2 text-sm font-semibold text-slate-900">Belum ada barang</h3>
-                <p class="mt-1 text-sm text-slate-500">Jadilah orang pertama yang membagikan barang bekas Anda.</p>
-                <div class="mt-6">
-                    <a href="{{ route('items.create') }}" class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-emerald-600 rounded-lg hover:bg-emerald-700">
-                        Bagikan Barang Sekarang
-                    </a>
-                </div>
+        </div>
+    @empty
+        <div class="col-span-full bg-white border border-slate-200 border-dashed rounded-2xl p-12 text-center">
+            <div class="w-12 h-12 bg-slate-50 text-slate-400 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-box-open text-xl"></i>
             </div>
-        @endforelse
-    </div>
+            <h3 class="text-sm font-semibold text-slate-900">Belum ada barang donasi</h3>
+            <p class="text-xs text-slate-500 mt-1">Jadilah orang pertama yang membagikan barang layak pakai Anda.</p>
+            <a href="{{ route('items.create') }}" class="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors">
+                Bagikan Sekarang &rarr;
+            </a>
+        </div>
+    @endforelse
 </div>
 @endsection

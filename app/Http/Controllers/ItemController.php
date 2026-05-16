@@ -7,11 +7,24 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
-    // READ: Menampilkan semua barang
+    // READ: Menampilkan beranda utama barang
     public function index()
     {
         $items = Item::latest()->get();
         return view('items.index', compact('items'));
+    }
+
+    public function katalog()
+    {
+        $items = Item::latest()->get();
+        // Target file blade tetap explore.blade.php agar Anda tidak perlu me-rename nama filenya di VS Code
+        return view('items.katalog', compact('items'));
+    }
+
+    // CUSTOM: Halaman Tentang Kami
+    public function about()
+    {
+        return view('items.about');
     }
 
     // CREATE: Form tambah barang
@@ -60,5 +73,11 @@ class ItemController extends Controller
     {
         $item->delete();
         return redirect()->route('items.index')->with('success', 'Barang berhasil dihapus.');
+    }
+
+    // PENCEGAH ERROR: Mengarahkan rute show bawaan resource kembali ke depan
+    public function show($id)
+    {
+        return redirect()->route('items.index');
     }
 }

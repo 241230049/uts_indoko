@@ -1,49 +1,51 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow-md border border-gray-100">
-    <h1 class="text-2xl font-bold text-gray-900 mb-6">Bagikan Barang Bekas Anda</h1>
+<div class="max-w-xl mx-auto bg-white border border-slate-200/70 shadow-sm rounded-2xl overflow-hidden">
+    <div class="p-6 border-b border-slate-100 bg-slate-50/50">
+        <h2 class="text-lg font-bold text-slate-900">Formulir Bagikan Barang</h2>
+        <p class="text-xs text-slate-500 mt-0.5">Silakan isi informasi barang bekas yang ingin Anda donasikan.</p>
+    </div>
 
-    <form action="{{ route('items.store') }}" method="POST" class="space-y-4">
+    <form action="{{ route('items.store') }}" method="POST" class="p-6 space-y-5">
         @csrf
+
         <div>
-            <label class="block text-sm font-medium text-gray-700">Nama Barang</label>
-            <input type="text" name="nama_barang" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 p-2 border" required>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Nama Barang</label>
+            <input type="text" name="nama_barang" required class="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors">
         </div>
 
         <div class="grid grid-cols-2 gap-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700">Kategori</label>
-                <select name="kategori" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 p-2 border">
-                    <option value="Pakaian">Pakaian</option>
-                    <option value="Elektronik">Elektronik</option>
-                    <option value="Buku">Buku</option>
-                    <option value="Perabotan">Perabotan</option>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Kategori Barang</label>
+                <select name="kategori" class="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-sm bg-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors">
+                    <option value="Pakaian">Pakaian / Sandang</option>
+                    <option value="Elektronik">Elektronik / Gadget</option>
+                    <option value="Buku & Pendidikan">Buku & Alat Tulis</option>
+                    <option value="Peralatan Rumah">Peralatan Rumah Tangga</option>
+                    <option value="Mainan Anak">Mainan & Hobi</option>
+                    <option value="Lainnya">Lain-lain</option>
                 </select>
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700">Kondisi</label>
-                <select name="kondisi" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 p-2 border">
-                    <option value="Seperti Baru">Seperti Baru</option>
-                    <option value="Sangat Bagus">Sangat Bagus</option>
-                    <option value="Layak Pakai">Layak Pakai</option>
-                </select>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Kondisi</label>
+                <input type="text" name="kondisi" required class="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors">
             </div>
         </div>
 
         <div>
-            <label class="block text-sm font-medium text-gray-700">Kontak Pemilik (WA/Email)</label>
-            <input type="text" name="kontak_pemilik" placeholder="Contoh: 081234567xx" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 p-2 border" required>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Kontak</label>
+            <input type="tel" name="kontak_pemilik" required class="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors">
         </div>
 
         <div>
-            <label class="block text-sm font-medium text-gray-700">Deskripsi Barang</label>
-            <textarea name="deskripsi" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 p-2 border" required></textarea>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Deskripsi</label>
+            <textarea name="deskripsi" rows="4" required class="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"></textarea>
         </div>
 
-        <div class="flex justify-end space-x-3 pt-4">
-            <a href="{{ route('items.index') }}" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200">Batal</a>
-            <button type="submit" class="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700">Simpan & Bagikan</button>
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+            <a href="{{ route('items.index') }}" class="px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl transition-colors">Batal</a>
+            <button type="submit" class="px-5 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-sm transition-colors">Simpan & Publikasikan</button>
         </div>
     </form>
 </div>

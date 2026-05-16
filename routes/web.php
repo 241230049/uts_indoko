@@ -3,13 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::resource('items', ItemController::class);
-// Mengarahkan halaman utama langsung ke daftar barang
+// 1. Mengarahkan halaman utama langsung ke daftar beranda barang
 Route::get('/', [ItemController::class, 'index']);
 
-Route::view('/tentang-kami', 'pages.tentang')->name('tentang');
-Route::view('/panduan-berbagi', 'pages.panduan')->name('panduan');
+// 2. Rute Khusus (Wajib di atas resource agar tidak bentrok)
+Route::get('/items/katalog', [ItemController::class, 'katalog'])->name('items.katalog');
+Route::get('/items/about', [ItemController::class, 'about'])->name('items.about');
+
+// 3. Rute Utama CRUD (Cukup ditulis satu kali saja)
+Route::resource('items', ItemController::class);

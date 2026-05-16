@@ -6,24 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
-{
-    Schema::create('items', function (Blueprint $table) {
-        $table->id();
-        $table->string('nama_barang');
-        $table->text('deskripsi');
-        $table->string('kategori');
-        $table->string('kondisi'); // Contoh: Sangat Bagus, Layak Pakai
-        $table->string('kontak_pemilik'); // Nomor WA atau Email
-        $table->timestamps();
-    });
-}
-    /**
-     * Reverse the migrations.
-     */
+    {
+        Schema::create('items', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_barang');
+            $table->text('deskripsi');
+            $table->string('kategori');
+            $table->string('kondisi');
+            $table->string('kontak_pemilik');
+            $table->timestamps(); // Ini otomatis membuat kolom created_at dan updated_at
+        });
+    }
+
     public function down(): void
     {
         Schema::dropIfExists('items');
