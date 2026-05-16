@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('app')
 
 @section('content')
 <div class="max-w-xl mx-auto bg-white border border-slate-200/70 shadow-sm rounded-2xl overflow-hidden">
@@ -7,7 +7,7 @@
         <p class="text-xs text-slate-500 mt-0.5">Silakan isi informasi barang bekas yang ingin Anda donasikan.</p>
     </div>
 
-    <form action="{{ route('items.store') }}" method="POST" class="p-6 space-y-5">
+    <form action="{{ route('campaigns.store') }}" method="POST" class="p-6 space-y-5">
         @csrf
 
         <div>
@@ -44,7 +44,7 @@
         </div>
 
         <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
-            <a href="{{ route('items.index') }}" class="px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl transition-colors">Batal</a>
+            <a href="{{ route('campaigns.index') }}" class="px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl transition-colors">Batal</a>
             <button type="submit" class="px-5 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-sm transition-colors">Simpan & Publikasikan</button>
         </div>
     </form>

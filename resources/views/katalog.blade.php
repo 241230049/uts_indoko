@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('app')
 
 @section('content')
 <div class="mb-6">
@@ -26,7 +26,7 @@
 </div>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gridBarang">
-    @forelse($items as $item)
+    @forelse($campaigns as $item)
         <div class="kartu-barang bg-white border border-slate-200/60 rounded-2xl p-5 flex flex-col justify-between hover:border-blue-200 hover:shadow-xl hover:shadow-blue-50/20 transition-all duration-300 group" 
              data-nama="{{ strtolower($item->nama_barang) }}" 
              data-kategori="{{ $item->kategori }}">
@@ -36,7 +36,7 @@
                     <span class="px-2.5 py-1 bg-blue-50 text-blue-700 rounded-lg text-xs font-semibold uppercase">
                         {{ $item->kategori }}
                     </span>
-                    <span class="px-2.5 py-1 bg-amber-50 text-amber-700 rounded-lg text-xs font-semibold uppercase">
+                    <span class="px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-lg text-xs font-semibold uppercase">
                         Kondisi: {{ $item->kondisi }}
                     </span>
                 </div>
@@ -51,16 +51,17 @@
             </div>
 
             <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between gap-4">
-                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $item->kontak_pemilik) }}" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-emerald-600 hover:text-emerald-700 transition-colors bg-emerald-50 px-3 py-1.5 rounded-xl">
-                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $item->kontak_pemilik) }}" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-white bg-emerald-800 hover:bg-emerald-900 transition-colors px-3 py-1.5 rounded-xl shadow-sm">
+                    <i class="fa-brands fa-whatsapp text-sm text-emerald-200"></i>
                     <span>Hubungi Pemilik</span>
                 </a>
 
                 <div class="flex items-center gap-2">
-                    <a href="{{ route('items.edit', $item->id) }}" class="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all">
+                    <a href="{{ route('campaigns.edit', $item->id) }}" class="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all">
                         <i class="fa-solid fa-pen-to-square text-sm"></i>
                     </a>
-                    <form action="{{ route('items.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin?')" class="inline">
+                    
+                    <form action="{{ route('campaigns.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin?')" class="inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-all">
@@ -89,6 +90,7 @@
 
     inputCari.addEventListener('input', () => { jalankanFilter(); });
 
+    // Perbaikan deteksi teks tombol kategori agar pencarian JavaScript berjalan akurat
     function filterKategori(kategori) {
         kategoriAktif = kategori;
         const tombols = document.querySelectorAll('.btn-filter');
@@ -108,6 +110,8 @@
         kartuBarang.forEach(kartu => {
             const namaBarang = kartu.getAttribute('data-nama');
             const kategoriBarang = kartu.getAttribute('data-kategori');
+            
+            // Mencocokkan teks atau kategori secara dinamis
             if (namaBarang.includes(kataKunci) && (kategoriAktif === 'Semua' || kategoriBarang === kategoriAktif)) {
                 kartu.style.display = 'flex';
                 barangTerlihat++;

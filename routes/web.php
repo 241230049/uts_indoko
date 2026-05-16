@@ -1,14 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ItemController;
+// Import semua controller yang digunakan
+use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\KatalogController;
+use App\Http\Controllers\AboutController;
 
-// 1. Mengarahkan halaman utama langsung ke daftar beranda barang
-Route::get('/', [ItemController::class, 'index']);
+// Rute Beranda & CRUD Barang (Otomatis menghandle index, create, store, edit, update, destroy)
+Route::resource('campaigns', CampaignController::class);
 
-// 2. Rute Khusus (Wajib di atas resource agar tidak bentrok)
-Route::get('/items/katalog', [ItemController::class, 'katalog'])->name('items.katalog');
-Route::get('/items/about', [ItemController::class, 'about'])->name('items.about');
+// Rute Mengarah ke halaman utama Beranda (bisa diarahkan ke index milik CampaignController)
+Route::get('/', [CampaignController::class, 'index'])->name('home');
 
-// 3. Rute Utama CRUD (Cukup ditulis satu kali saja)
-Route::resource('items', ItemController::class);
+// Rute Katalog (Memanggil KatalogController)
+Route::get('/katalog', KatalogController::class)->name('katalog');
+
+// Rute Tentang Kami (Memanggil AboutController)
+Route::get('/about', AboutController::class)->name('about');
