@@ -7,13 +7,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-slate-50 antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-slate-50/70 text-slate-900 antialiased selection:bg-blue-600 selection:text-white">
 
     @include('partials.header')
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow">
-        @yield('content')
+    <main class="relative min-h-screen">
+        <div class="absolute top-20 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[500px] bg-gradient-to-r from-blue-500/5 via-indigo-500/3 to-transparent rounded-full blur-3xl pointer-events-none -z-10"></div>
+        
+        <div class="container mx-auto">
+            @yield('content')
+        </div>
     </main>
 
-    @include('partials.footer') </body>
+    @include('partials.footer')
+
+</body>
 </html>

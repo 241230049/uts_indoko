@@ -20,19 +20,22 @@ class CampaignController extends Controller
         return view('campaigns.create');
     }
 
-    // Menyimpan data barang baru
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_barang' => 'required|string|max:255',
-            'deskripsi' => 'required',
-            'kategori' => 'required',
-            'kondisi' => 'required',
-            'kontak_pemilik' => 'required',
-        ]);
+    // 1. Proses validasi data dari form
+    $validated = $request->validate([
+        'nama_barang' => 'required|string|max:255',
+        'kategori'    => 'required|string',
+        'kondisi'     => 'required|string',
+        'kontak_pemilik' => 'required|string',
+        'deskripsi'   => 'required|string',
+    ]);
 
-        Campaign::create($request->all());
-        return redirect()->route('campaigns.index')->with('success', 'Barang berhasil dibagikan!');
+    // 2. Simpan data ke database
+    Campaign::create($validated);
+
+    // 3. DIUBAH DI SINI: Alihkan ke route bernama 'katalog'
+    return redirect()->route('katalog')->with('success', 'Barang donasi Anda berhasil ditambahkan ke katalog!');
     }
 
     // Form edit barang
@@ -53,15 +56,11 @@ class CampaignController extends Controller
         return redirect()->route('campaigns.index')->with('success', 'Data barang berhasil diperbarui!');
     }
 
-    // Menghapus barang
     public function destroy(Campaign $campaign)
     {
-        $campaign->delete();
-        return redirect()->route('campaigns.index')->with('success', 'Barang berhasil dihapus.');
-    }
-
-    public function show($id)
-    {
-        return redirect()->route('campaigns.index');
+    $campaign->delete();
+    
+    // MENGGUNAKAN ->with('deleted', ...) khusus untuk alert merah hapus
+    return redirect()->route('katalog')->with('deleted', 'Barang donasi telah berhasil dihapus dari katalog.');
     }
 }
