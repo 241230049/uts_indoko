@@ -167,8 +167,8 @@
                 <span class="text-xs font-bold text-blue-600 uppercase tracking-widest block">Etalase Publik</span>
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Barang Donasi Tersedia</h2>
             </div>
-            <a href="{{ route('katalog') }}" class="text-xs font-bold text-blue-600 hover:text-blue-700 inline-flex items-center gap-1.5 transition-colors bg-blue-50 px-4 py-2 rounded-xl">
-                Jelajahi Katalog Penuh <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            <a href="{{ route('katalog') }}" class="text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors bg-blue-50 px-4 py-2 rounded-xl">
+                Jelajahi Katalog
             </a>
         </div>
 
@@ -185,10 +185,11 @@
                     </div>
 
                     <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between gap-4">
-                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $item->kontak_pemilik) }}" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-white bg-emerald-800 hover:bg-emerald-900 transition-colors px-3 py-2 rounded-xl shadow-sm">
-                            <i class="fa-brands fa-whatsapp text-sm text-emerald-300"></i>
-                            <span>Hubungi Pemilik</span>
-                        </a>
+                        <div class="inline-flex items-center gap-2 text-xs font-semibold text-slate-700 bg-slate-100 px-3 py-2 rounded-xl border border-slate-200/60 select-all" title="Klik 3x atau tahan untuk menyalin nomor">
+                            <i class="fa-solid fa-phone text-[11px] text-slate-400"></i>
+                            <span>{{ $item->kontak_pemilik }}</span>
+                        </div>
+                        
                         <div class="flex items-center gap-1.5">
                             <a href="{{ route('campaigns.edit', $item->id) }}" class="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"><i class="fa-solid fa-pen-to-square text-sm"></i></a>
                             <form action="{{ route('campaigns.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin?')" class="inline">@csrf @method('DELETE')<button type="submit" class="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-all"><i class="fa-solid fa-trash text-sm"></i></button></form>

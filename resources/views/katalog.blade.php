@@ -91,12 +91,12 @@
                 </div>
 
                 <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between gap-4">
-                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $item->kontak_pemilik) }}" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-white bg-emerald-800 hover:bg-emerald-900 transition-colors px-3 py-1.5 rounded-xl shadow-sm">
-                        <i class="fa-brands fa-whatsapp text-sm text-emerald-200"></i>
-                        <span>Hubungi Pemilik</span>
-                    </a>
-
-                    <div class="flex items-center gap-2">
+                    <div class="inline-flex items-center gap-2 text-xs font-semibold text-slate-700 bg-slate-100 px-3 py-2 rounded-xl border border-slate-200/60 select-all" title="Klik 3x atau tahan untuk menyalin nomor">
+                        <i class="fa-solid fa-phone text-[11px] text-slate-400"></i>
+                        <span>{{ $item->kontak_pemilik }}</span>
+                    </div>
+                    
+                    <div class="flex items-center gap-1.5">
                         <a href="{{ route('campaigns.edit', $item->id) }}" class="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all">
                             <i class="fa-solid fa-pen-to-square text-sm"></i>
                         </a>
@@ -110,8 +110,8 @@
                         </form>
                     </div>
                 </div>
-            </div>
-        @empty
+
+            </div> @empty
             <div class="col-span-full bg-white border border-slate-200 border-dashed rounded-2xl p-12 text-center">
                 <h3 class="text-sm font-semibold text-slate-900">Belum ada barang</h3>
             </div>
