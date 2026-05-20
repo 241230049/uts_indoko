@@ -47,13 +47,20 @@ class CampaignController extends Controller
     // Memperbarui data barang
     public function update(Request $request, Campaign $campaign)
     {
-        $request->validate([
-            'nama_barang' => 'required|string|max:255',
-            'deskripsi' => 'required',
+        // 1. Validasi semua data dari form edit
+        $validated = $request->validate([
+            'nama_barang'    => 'required|string|max:255',
+            'kategori'       => 'required|string',
+            'kondisi'        => 'required|string',
+            'kontak_pemilik' => 'required|string',
+            'deskripsi'      => 'required|string',
         ]);
 
-        $campaign->update($request->all());
-        return redirect()->route('campaigns.index')->with('success', 'Data barang berhasil diperbarui!');
+        // 2. Perbarui data di database
+        $campaign->update($validated);
+        
+        // 3. Mengarahkan ke rute katalog dengan membawa session success_edit
+        return redirect()->route('katalog')->with('success_edit', 'Data barang donasi berhasil diperbarui!');
     }
 
     public function destroy(Campaign $campaign)

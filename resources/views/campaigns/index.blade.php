@@ -144,7 +144,7 @@
                     <i class="fa-solid fa-gamepad text-xs"></i>
                 </div>
                 <div class="mt-6 space-y-1">
-                    <h3 class="text-xs font-bold tracking-wide text-slate-900 uppercase">Mainan & Hobi</h3>
+                    <h3 class="text-xs font-bold tracking-wide text-slate-900 uppercase">Mainan</h3>
                     <p class="text-[11px] text-slate-400 font-medium leading-normal">Mainan edukasi anak dan instrumen kreatifitas.</p>
                 </div>
             </div>

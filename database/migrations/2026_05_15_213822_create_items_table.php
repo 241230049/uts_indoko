@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('kategori');
             $table->string('kondisi');
             $table->string('kontak_pemilik');
-            $table->timestamps(); // Ini otomatis membuat kolom created_at dan updated_at
+            $table->timestamps();
         });
     }
 

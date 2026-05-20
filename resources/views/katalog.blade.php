@@ -1,18 +1,22 @@
 @extends('app')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+<div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mt-4">
 
-    @if(session('success'))
+    @if(session('success_edit') || session('success'))
     <div id="success-alert" class="mb-6 transition-all duration-500 ease-in-out">
-        <div class="bg-emerald-50 border border-emerald-200/80 text-emerald-950 rounded-2xl p-5 shadow-sm shadow-emerald-100 flex items-start justify-between gap-4">
+        <div class="bg-emerald-50 border border-emerald-200 text-emerald-950 rounded-2xl p-5 shadow-sm shadow-emerald-100 flex items-start justify-between gap-4">
             <div class="flex items-start gap-3.5">
-                <div class="w-9 h-9 bg-emerald-500 text-white rounded-xl flex items-center justify-center shrink-0 border border-emerald-400/20 shadow-sm shadow-emerald-500/20">
+                <div class="w-9 h-9 bg-emerald-600 text-white rounded-xl flex items-center justify-center shrink-0 border border-emerald-500/20 shadow-sm shadow-emerald-600/20">
                     <i class="fa-solid fa-circle-check text-sm"></i>
                 </div>
                 <div class="space-y-0.5">
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-900">Aksi Berhasil</h4>
-                    <p class="text-xs text-emerald-600 font-medium leading-relaxed">{{ session('success') }}</p>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-900">
+                        {{ session('success_edit') ? 'Data Diperbarui' : 'Data Ditambahkan' }}
+                    </h4>
+                    <p class="text-xs text-emerald-600 font-medium leading-relaxed">
+                        {{ session('success_edit') ?? session('success') }}
+                    </p>
                 </div>
             </div>
             <button onclick="document.getElementById('success-alert').style.display='none'" class="text-emerald-400 hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-100/50 transition-colors shrink-0">
@@ -21,7 +25,7 @@
         </div>
     </div>
     @endif
-
+    
     @if(session('deleted'))
     <div id="delete-alert" class="mb-6 transition-all duration-500 ease-in-out">
         <div class="bg-rose-50 border border-rose-200/80 text-rose-950 rounded-2xl p-5 shadow-sm shadow-rose-100 flex items-start justify-between gap-4">
