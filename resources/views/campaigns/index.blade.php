@@ -11,14 +11,14 @@
 
             <div class="space-y-6 lg:col-span-7 relative z-10">
                 <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.2]">Mungkin<br>
-                <span class="bg-gradient-to-r from-blue-400 via-indigo-300 to-slate-200 bg-clip-text text-transparent font-black">
-                    Barang Tersisa Anda, <br> Jawaban Doa Mereka Hari Ini
-                </span>
-            </h1>
-    <p class="text-xs sm:text-base text-slate-300/90 max-w-xl leading-relaxed font-normal tracking-wide">
-        Sesuatu yang hanya berdebu di dalam lemari kita, bisa jadi adalah impian yang selama ini mereka langitkan dalam tangis. Mari longgarkan ruang hidup kita, untuk melapangkan lembar hidup sesama yang sedang berjuang di luar sana.
-    </p>
-</div>
+                    <span class="bg-gradient-to-r from-blue-400 via-indigo-300 to-slate-200 bg-clip-text text-transparent font-black">
+                        Barang Tersisa Anda, <br> Jawaban Doa Mereka Hari Ini
+                    </span>
+                </h1>
+                <p class="text-xs sm:text-base text-slate-300/90 max-w-xl leading-relaxed font-normal tracking-wide">
+                    Sesuatu yang hanya berdebu di dalam lemari kita, bisa jadi adalah impian yang selama ini mereka langitkan dalam tangis. Mari longgarkan ruang hidup kita, untuk melapangkan lembar hidup sesama yang sedang berjuang di luar sana.
+                </p>
+            </div>
 
             <div class="lg:col-span-5 relative z-10 grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-1">
                 <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 flex items-center gap-5 transition-all duration-300 hover:bg-white/10">
@@ -105,7 +105,7 @@
                 </div>
                 <div class="mt-6 space-y-1">
                     <h3 class="text-xs font-bold tracking-wide text-slate-900 uppercase">Pakaian / Sandang</h3>
-                    <p class="text-[11px] text-slate-400 font-medium leading-normal">Pakaian harian, selimut, dan sandang layak.</p>
+                    <p class="text-[11px] text-slate-400 font-medium leading-normal">Pakaian harian, selimut, and sandang layak.</p>
                 </div>
             </div>
 
@@ -161,12 +161,55 @@
         </div>
     </div>
 
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-8">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div class="space-y-1">
+                <span class="text-xs font-bold text-blue-600 uppercase tracking-widest block">Etalase Publik</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Barang Donasi Tersedia</h2>
+            </div>
+            <a href="{{ route('katalog') }}" class="text-xs font-bold text-blue-600 hover:text-blue-700 inline-flex items-center gap-1.5 transition-colors bg-blue-50 px-4 py-2 rounded-xl">
+                Jelajahi Katalog Penuh <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            @forelse($campaigns as $item)
+                <div class="bg-white border border-slate-200/70 rounded-2xl p-6 flex flex-col justify-between hover:border-blue-400 hover:shadow-xl hover:shadow-slate-200/30 transition-all duration-300 group min-h-[250px]">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-4">
+                            <span class="px-2.5 py-1 bg-blue-50 text-blue-700 rounded-lg text-[10px] font-bold uppercase tracking-wider">{{ $item->kategori }}</span>
+                            <span class="px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-lg text-[10px] font-bold uppercase tracking-wider">Kondisi: {{ $item->kondisi }}</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 line-clamp-1 group-hover:text-blue-600 transition-colors">{{ $item->nama_barang }}</h3>
+                        <p class="text-xs text-slate-500 mt-2.5 line-clamp-3 leading-relaxed min-h-[54px]">{{ $item->deskripsi }}</p>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between gap-4">
+                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $item->kontak_pemilik) }}" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-white bg-emerald-800 hover:bg-emerald-900 transition-colors px-3 py-2 rounded-xl shadow-sm">
+                            <i class="fa-brands fa-whatsapp text-sm text-emerald-300"></i>
+                            <span>Hubungi Pemilik</span>
+                        </a>
+                        <div class="flex items-center gap-1.5">
+                            <a href="{{ route('campaigns.edit', $item->id) }}" class="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"><i class="fa-solid fa-pen-to-square text-sm"></i></a>
+                            <form action="{{ route('campaigns.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin?')" class="inline">@csrf @method('DELETE')<button type="submit" class="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-all"><i class="fa-solid fa-trash text-sm"></i></button></form>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="col-span-full bg-white border border-slate-200 border-dashed rounded-2xl p-12 text-center">
+                    <i class="fa-solid fa-box-open text-slate-300 text-3xl mb-2 block"></i>
+                    <h3 class="text-xs font-semibold text-slate-800">Belum ada barang donasi yang didaftarkan saat ini.</h3>
+                </div>
+            @endforelse
+        </div>
+    </div>
+
     <div class="max-w-5xl mx-auto px-5 sm:px-5 lg:px-10">
         <div class="bg-slate-950 text-white rounded-[2rem] p-10 sm:p-16 text-center space-y-6 shadow-xl border border-white/5 relative overflow-hidden">
             <div class="absolute -top-1/2 -left-1/2 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none"></div>
             
             <div class="max-w-2xl mx-auto space-y-4 relative z-10">
-                <h2 class="text-3x1 sm:text-3xl font-extrabold tracking-tight leading-tight">
+                <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight">
                     Satu Langkah Kecil, Harapan Baru Bagi Mereka
                 </h2>
                 <p class="text-slate-400 text-xs sm:text-sm max-w-md mx-auto leading-relaxed font-normal">

@@ -3,7 +3,7 @@
 @section('content')
 <div class="max-w-xl mx-auto bg-white border border-slate-200/70 shadow-sm rounded-2xl overflow-hidden">
     <div class="p-6 border-b border-slate-100 bg-slate-50/50">
-        <h2 class="text-lg font-bold text-slate-900">Perbarui Data Donasi</h2>
+        <h2 class="text-lg font-bold text-slate-900">Edit Data Donasi</h2>
         <p class="text-xs text-slate-500 mt-0.5">Ubah informasi kelayakan barang donasi Anda.</p>
     </div>
 

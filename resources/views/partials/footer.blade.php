@@ -1,4 +1,4 @@
-<footer class="bg-white border-t border-slate-100 mt-36">
+<footer class="bg-white text-slate-500 border-t border-slate-200/80 mt-auto shadow-inner shadow-slate-50/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
         
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-slate-100">
@@ -14,9 +14,10 @@
                     Platform praktikum berbagi barang layak pakai untuk mendukung sirkulasi barang bekas yang lebih bermanfaat bagi sesama.
                 </p>
             </div>
+
             <div class="space-y-3">
                 <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Aplikasi</h4>
-                <ul class="space-y-2.5 text-xs font-medium text-slate-500">
+                <ul class="space-y-2.5 text-xs font-semibold text-slate-500">
                     <li>
                         <a href="{{ route('campaigns.index') }}" class="hover:text-blue-600 transition-colors">Beranda</a>
                     </li>
@@ -31,14 +32,14 @@
 
             <div class="space-y-3">
                 <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Bantuan</h4>
-                <ul class="space-y-2.5 text-xs font-medium text-slate-500">
+                <ul class="space-y-2.5 text-xs font-semibold text-slate-500">
                     <li>
                         <a href="mailto:support@lepaspakai.test" class="hover:text-blue-600 transition-colors inline-flex items-center gap-1.5">
                             <i class="fa-regular fa-envelope text-slate-400"></i> support@lepaspakai.test
                         </a>
                     </li>
                     <li class="text-slate-400 font-normal text-[11px] italic">
-                        Lab Komputer Terpadu TI
+                        Lab Komputer Sistem Informasi
                     </li>
                 </ul>
             </div>
@@ -47,11 +48,12 @@
 
         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-[11px] text-slate-400">
             <p class="font-medium tracking-wide">
-                &copy; {{ date('Y') }} <span class="text-slate-600 font-semibold">LepasPakai</span>. Hak Cipta Dilindungi.
+                &copy; {{ date('Y') }} <span class="text-slate-900 font-bold">LepasPakai</span>. Hak Cipta Dilindungi.
             </p>
-            <div class="flex items-center gap-2 bg-slate-50 border border-slate-200/40 px-3 py-1 rounded-full">
+            
+            <div class="flex items-center gap-2 bg-slate-50 border border-slate-200/60 px-3 py-1 rounded-full">
                 <span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
-                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Proyek UTS Praktikum Web</span>
+                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Proyek UTS Web Lanjut</span>
             </div>
         </div>
 
